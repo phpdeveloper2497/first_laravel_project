@@ -15,6 +15,11 @@ class Post extends Model
         'content',
         'photo'
     ];
-
+//        ikkinchi usul
 //    protected $guarded = ['id'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
