@@ -119,7 +119,7 @@ class PostController extends Controller
 //            ->get();
 //            dd($posts);
 
-        $posts = Post::latest()->paginate(3);
+        $posts = Post::latest()->paginate(9);
 
         return view('posts.index')->with('posts', $posts);
 
