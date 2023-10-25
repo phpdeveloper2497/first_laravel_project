@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,12 @@ Route::get('/contact',[PageController::class, 'contact'])->name('contact');
 //Route::put('/posts/{posts}/update',[PageController::class, 'update'])->name('posts.update');
 //Route::delete('/posts/delete',[PageController::class, 'delete'])->name('posts.delete');
 
-Route::resource('posts', PostController::class);
+//Route::resource('posts', PostController::class);
+//Route::resource('comments', CommentsController::class);
 
+//yuqoridagi resource larni qisqacha yozish
+
+Route::resources([
+    'posts' => PostController::class,
+    'comments' => CommentsController::class
+]);
