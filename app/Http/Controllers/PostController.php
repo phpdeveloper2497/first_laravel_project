@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -131,6 +132,7 @@ class PostController extends Controller
     {
         return view('posts.create')->with([
             'categories' => Category::all(),
+            'tags' => Tag::all(),
         ]);
 
     }
@@ -138,6 +140,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest   $request)
     {
+
             //First method
 //$path = $request->file('photo')->store('post-photos');
 //$path = $request->file('photo')->storeAs('post-photos','bor');
@@ -153,11 +156,20 @@ class PostController extends Controller
         $post = Post::create([
             'user_id' =>1,
             'category_id' =>$request->input('category_id'),
+//            'tag_id' =>$request->input('tag_id'),
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
             'content' => $request->input('content'),
             'photo' => $path ?? null,
         ]);
+
+       if(isset($request->tags))
+       {
+           foreach ($request->tags as $tag)
+           {
+               $post->tags()->attach($tag);
+           }
+       }
 
         return redirect()->route('posts.index');
     }
@@ -167,7 +179,9 @@ class PostController extends Controller
 //        $post = Post::find();  bu holatda show ga argument beriladi show(string $id) ko'rinishida
         return view('posts.show')->with([
             'post' => $post,
-            'recent_posts' => Post::latest()->get()->except($post->id)->take(5)
+            'recent_posts' => Post::latest()->get()->except($post->id)->take(5),
+            'categories' => Category::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
