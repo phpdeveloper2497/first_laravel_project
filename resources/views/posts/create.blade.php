@@ -23,6 +23,17 @@
                             <p class="help-block text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="col-sm-12 control-group mb-4 ">
+                            <select class="rounded-5 form-control p-2"  name="category_id" value="Choose category" >
+                                    <option value="" selected disabled>Choose category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('title')
+                            <p class="help-block text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <div class="col-sm-12 control-group mb-4">
                             <textarea class="form-control p-4" rows="4" name="short_content"  placeholder="Post short_content" >{{ old('short_content') }}</textarea>
                             @error('short_content')

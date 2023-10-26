@@ -28,7 +28,7 @@
                             <img class="img-fluid rounded w-100" src="{{asset('storage/'.$post->photo)}}"
                                  alt="There is photo">
                             <div class="blog-date">
-                                <h4 class="font-weight-bold mb-n1">01</h4>
+                                <h4 class="font-weight-bold mb-n1">{{$post->created_at}}</h4>
                                 <small class="text-white text-uppercase">Jan</small>
                             </div>
                         </div>
@@ -36,6 +36,10 @@
                             <a class="text-secondary text-u ppercase font-weight-medium" href="">Admin</a>
                             <span class="text-primary px-2">|</span>
                             <a class="text-secondary text-uppercase font-weight-medium" href="">Cleaning</a>
+                        </div>
+{{--                        Cagetgory--}}
+                        <div>
+                            <h6  class="text-danger text-u ppercase font-weight-medium">{{ $post->category->name}}</h6>
                         </div>
                         <h5 class="font-weight-medium mb-2">{{$post->title}}</h5>
                         <p class="mb-4">{{$post->short_content}}</p>

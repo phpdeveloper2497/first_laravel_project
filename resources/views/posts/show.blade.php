@@ -33,6 +33,9 @@
                             <span class="text-primary px-2">|</span>
                             <a class="text-secondary text-uppercase font-weight-medium" href="">{{$post->created_at}}</a>
                         </div>
+                        <div>
+                            <h6  class="text-uppercase text-danger text-u ppercase font-weight-medium">{{ $post->category->name}}</h6>
+                        </div>
                         <h1 class="section-title mb-3">{{$post->title}}</h1>
                     </div>
 
@@ -180,6 +183,7 @@
         </div>
     </div>
     <!-- Detail End -->
+
 
 
 </x-layouts.main>
