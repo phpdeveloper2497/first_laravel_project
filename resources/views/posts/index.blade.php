@@ -27,10 +27,10 @@
                         <div class="position-relative mb-4">
                             <img class="img-fluid rounded w-100" src="{{asset('storage/'.$post->photo)}}"
                                  alt="There is photo">
-                            <div class="blog-date">
-                                <h4 class="font-weight-bold mb-n1">01</h4>
-                                <small class="text-white text-uppercase">Jan</small>
-                            </div>
+{{--                            <div class="blog-date">--}}
+{{--                                <h4 class="font-weight-bold mb-n1">01</h4>--}}
+{{--                                <small class="text-white text-uppercase">Jan</small>--}}
+{{--                            </div>--}}
                         </div>
                         <div class="d-flex mb-2">
                            @foreach($post->tags as $tag)

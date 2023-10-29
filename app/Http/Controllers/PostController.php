@@ -8,10 +8,18 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+        $this->authorizeResource(Post::class,'post'); // agar CRUD bo'ladigan bo'lsa methodlarga $this->authorize('update', $post); ni yozish shatmash shuni yozsak hammasi uchun ishlaydi faqat  ruxsat berish shart bolmaganlariga PostPolicy class methodlariga (index,show, create) ga return true; yozish kk.
+    }
+
     public function index()
     {
 //        foreach (Post::all() as $posts) {
@@ -154,7 +162,7 @@ class PostController extends Controller
        }
 
         $post = Post::create([
-            'user_id' =>1,
+            'user_id' =>auth()->id(),
             'category_id' =>$request->input('category_id'),
 //            'tag_id' =>$request->input('tag_id'),
             'title' => $request->input('title'),
@@ -188,12 +196,27 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+//        Authorize uchun      birinchi usul
+//        if (! Gate::allows('update-post', $post)) {
+//            abort(403);
+//        }
+        //ikkinchi qisqa usul
+//        Gate::authorize('update', $post);
+// The action is authorized...
+
+//                uchinchi usul
+//        $this->authorize('update', $post);
+
         return view('posts.edit')->with(['post'=>$post]);
     }
 
 
     public function update(StorePostRequest $request, Post $post)
     {
+
+//        Gate::authorize('update', $post);
+
+//        $this->authorize('update', $post);
 
         if($request->hasFile('photo')){
 
@@ -219,6 +242,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+//        Gate::authorize('delete', $post);
+
+//        $this->authorize('update', $post);
+
         if(isset($post->photo)){
             Storage::delete($post->photo);
         }
